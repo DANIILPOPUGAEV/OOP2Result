@@ -1,0 +1,70 @@
+﻿@page "/writers"
+@inject HttpClient Http
+
+@using OOP2.Frontend.Shared.Utils
+
+<PageTitle>Писатели</PageTitle>
+<h3>Writers</h3>
+
+<div>
+    <ModalAddWriter OnWriterAdded="WriterAdded" />
+</div>
+
+@if (writers != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Patronymic</th>
+                <th>Second Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (writers.Count == 0)
+            {
+                <tr>
+                    <td colspan="4">No data</td>
+                </tr>
+            }
+            @foreach (var writer in writers)
+            {
+                <tr>
+                    <td>@writer.Name</td>
+                    <td>@writer.Patronymic</td>
+                    <td>@writer.SecondName</td>
+                    <td>
+                        <a href="/editwriter/@writer.Id">Edit</a>
+                        <a href="javascript:0;" @onclick="(() => DeleteWriter(writer.Id))">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+
+@code {
+
+    private List<Writer> writers = new List<Writer>();
+
+    private string url = "https://localhost:7235/api/writers";
+
+    protected override async Task OnInitializedAsync()
+    {
+        writers = await Http.GetFromJsonAsync<List<Writer>>(url);
+    }
+
+    private async Task DeleteWriter(Guid Id)
+    {
+        await Http.DeleteAsync(url+"/"+Id.ToString());
+        writers.Remove(writers.FirstOrDefault(w=>w.Id == Id));
+    }
+
+    protected void WriterAdded(Writer writer) => writers.Add(writer);
+}

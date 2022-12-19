@@ -1,0 +1,63 @@
+﻿@page "/editwriter/{id:guid}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Editwriter</h3>
+
+@if (writer == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<EditForm Model="@writer" OnValidSubmit="@EditWriter">
+		<InputText @bind-Value="_name" />
+		<InputText @bind-Value="_patronymic" />
+		<InputText @bind-Value="_secondName" />
+		<button type="submit">Edit</button>
+	</EditForm>
+}
+
+@code {
+	[Parameter]
+	public Guid Id { get; set; }
+	private Writer writer = new();
+	private string _name { get; set; } = null!;
+	private string _patronymic { get; set; } = null!;
+	private string _secondName { get; set; } = null!;
+
+	private string url = "https://localhost:7235/api/writers";
+
+	protected override async Task OnInitializedAsync()
+	{
+		writer = await Http.GetFromJsonAsync<Writer>($"{url}/{Id}");
+
+		if(writer != null)
+		{
+			_name = writer.Name;
+			_patronymic = writer.Patronymic;
+			_secondName = writer.SecondName;
+		}
+	}
+
+	private async Task EditWriter()
+	{
+		Console.WriteLine("КОГДА-НИБУДЬ ЭТА ШНЯГА ОТПРАВИТСЯ НА СЕРВАК");
+
+		var _writer = new Writer
+			{
+				Id = Id,
+				Name = _name,
+				SecondName = _secondName,
+				Patronymic = _patronymic
+			};
+
+		var res = await Http.PutAsJsonAsync(url, _writer);
+		if(res.IsSuccessStatusCode) {
+			Console.WriteLine("AWWWWWWW ^_^ ОНО УШЛО");
+			NavigationManager.NavigateTo("writers");
+		}
+		
+	}
+
+}

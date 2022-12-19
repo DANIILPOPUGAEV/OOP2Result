@@ -1,0 +1,55 @@
+﻿@inject HttpClient Http
+@inject IJSRuntime js
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Добавить
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <EditForm Model="@writer" OnValidSubmit="@AddWriter">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <InputText class="form-control mb-3" placeholder="Имя" @bind-Value="_name" />
+                        <InputText class="form-control mb-3" placeholder="Отчество" @bind-Value="_patronymic" />
+                        <InputText class="form-control mb-3" placeholder="Фамилия" @bind-Value="_secondName" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public EventCallback<Writer> OnWriterAdded { get; set; }
+    private Writer writer = new();
+
+    private string _name { get; set; } = string.Empty;
+    private string _patronymic { get; set; } = string.Empty;
+    private string _secondName { get; set; } = string.Empty;
+
+    private string url = "https://localhost:7235/api/writers";
+
+    private async Task AddWriter()
+    {
+        var _writer = new Writer
+            {
+                Name = _name,
+                SecondName = _secondName,
+                Patronymic = _patronymic
+            };
+        await Http.PostAsJsonAsync<Writer>(url, _writer);
+        await OnWriterAdded.InvokeAsync(_writer);
+    }
+}
