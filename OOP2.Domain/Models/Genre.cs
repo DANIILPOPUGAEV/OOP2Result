@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOP2.Domain
+namespace OOP2.Domain.Models
 {
     public class Genre
     {
@@ -13,11 +13,11 @@ namespace OOP2.Domain
 
 
 
-		/*
+        /*
         public Guid BookId { get; set; }
         public Book BookTitle { get; set; } = null!;
         
         public Guid WriterId { get; set; } = Guid.Empty;
         public Writer Writer { get; set; } = null!;*/
-	}
+    }
 }

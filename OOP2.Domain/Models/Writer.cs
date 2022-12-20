@@ -1,11 +1,11 @@
-﻿namespace OOP2.Domain
+﻿namespace OOP2.Domain.Models
 {
     public class Writer
     {
         public Guid Id { get; set; }
-        public string? Name { get; set; } = String.Empty;
-        public string? SecondName { get; set; } = String.Empty;
-        public string? Patronymic { get; set; } = String.Empty;
+        public string? Name { get; set; } = string.Empty;
+        public string? SecondName { get; set; } = string.Empty;
+        public string? Patronymic { get; set; } = string.Empty;
 
 
         public List<Genre> Genres { get; set; } = new List<Genre>();
@@ -18,7 +18,7 @@
 
 
 
-		/* public void AddGenre(Genre genre)
+        /* public void AddGenre(Genre genre)
         {
            Genres.Add(genre);
         }
@@ -26,5 +26,5 @@
         {
             Books.Add(book);
         }*/
-	}
+    }
 }

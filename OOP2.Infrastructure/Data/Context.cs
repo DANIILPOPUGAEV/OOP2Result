@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OOP2.Domain;
+using OOP2.Domain.Models;
 
 namespace OOP2.Infrastructure.Data
 {

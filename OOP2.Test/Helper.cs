@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OOP2.Domain;
+using OOP2.Domain.Models;
 using OOP2.Infrastructure.Data;
 using OOP2.Infrastructure.Repository;
 

@@ -1,13 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OOP2.Domain;
+using OOP2.Domain.Models;
 using OOP2.Infrastructure.Data;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP2.Infrastructure.Repository
 {
@@ -37,7 +30,6 @@ namespace OOP2.Infrastructure.Repository
         {
             return await _context.Writers
                 .Where(w => w.Name == name)
-                //.Include(w => w.Books)
                 .FirstOrDefaultAsync();
         }
 

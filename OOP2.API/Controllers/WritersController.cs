@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OOP2.Domain;
 using OOP2.Infrastructure.Data;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using OOP2.Infrastructure.Repository;
+using OOP2.Domain.Models;
 
 namespace OOP2.API.Controllers
 {
