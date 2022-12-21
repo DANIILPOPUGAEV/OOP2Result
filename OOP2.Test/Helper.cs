@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OOP2.Domain.Models;
 using OOP2.Infrastructure.Data;
 using OOP2.Infrastructure.Repository;
@@ -33,8 +28,8 @@ namespace OOP2.Test
             _context.Writers.Add(writer);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-        }
 
+        }
         public WriterRepository WriterRepository
         {
             get
@@ -42,5 +37,12 @@ namespace OOP2.Test
                 return new WriterRepository(_context);
             }
         }
-    }
+		public GenreRepository GenreRepository
+		{
+			get
+			{
+				return new GenreRepository(_context);
+			}
+		}
+	}
 }

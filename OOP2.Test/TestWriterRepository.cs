@@ -51,7 +51,6 @@ namespace OOP2.Test
 
             writerRepository.DeleteWriterAsync(writer).Wait();
             Assert.Equal(2, writerRepository.GetAllWritersAsync().Result?.Count);
-            
         }
     }
 }

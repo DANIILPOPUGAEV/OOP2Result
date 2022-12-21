@@ -32,7 +32,6 @@ namespace OOP2.Infrastructure.Repository
                 .Where(w => w.Name == name)
                 .FirstOrDefaultAsync();
         }
-
         public async Task AddWriterAsync(Writer writer)
         {
             await _context.Writers.AddAsync(writer);
@@ -59,10 +58,6 @@ namespace OOP2.Infrastructure.Repository
         public void ChangeTrackerClear()
         {
             _context.ChangeTracker.Clear();
-        }
-        
-        
-        
-        
+        } 
     }
 }

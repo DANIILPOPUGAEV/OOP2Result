@@ -7,13 +7,7 @@ namespace OOP2.Infrastructure.Repository
 	public class GenreRepository
 	{
 		private readonly Context _context;
-		public Context UnitOfWork
-		{
-			get
-			{
-				return _context;
-			}
-		}
+		public Context UnitOfWork{ get{return _context;} }
 		public GenreRepository(Context context)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
@@ -22,7 +16,7 @@ namespace OOP2.Infrastructure.Repository
 		{
 			return await _context.Genres.ToListAsync();
 		}
-		public async Task<Genre?> GetGenreByIDAsync(Guid Id)
+		public async Task<Genre?> GetGenreByIdAsync(Guid Id)
 		{
 			return await _context.Genres.Where(g => g.Id == Id).FirstOrDefaultAsync();
 		}
@@ -39,6 +33,19 @@ namespace OOP2.Infrastructure.Repository
 				_context.Entry(existGenre).CurrentValues.SetValues(genre);
 				await _context.SaveChangesAsync();
 			}
+		}
+		public async Task DeleteGenreByIdAsync(Guid id)
+		{
+			var existGenre = GetGenreByIdAsync(id).Result;
+			if (existGenre != null)
+			{
+				_context.Remove(existGenre);
+				await _context.SaveChangesAsync();
+			}
+		}
+		public void ChangeTrackerClear()
+		{
+			_context.ChangeTracker.Clear();
 		}
 	}
 }
