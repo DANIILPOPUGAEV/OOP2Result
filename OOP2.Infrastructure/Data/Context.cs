@@ -32,6 +32,8 @@ namespace OOP2.Infrastructure.Data
                     SecondName = "Достоевский"
                 }
             );
+            modelBuilder.Entity<Genre>().HasData(
+                new Genre { Id = Guid.NewGuid(), Name = "Роман" });
             /*
             modelBuilder.Entity<Writer>()
                 .HasMany(e => e.Books)
